@@ -1,9 +1,8 @@
+import csv
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-
-import requests
-from bs4 import BeautifulSoup
+import math
 
 def scrape_deck(url):
     response = requests.get(url)
@@ -54,7 +53,7 @@ def scrape_point(main,extra):
             main_card = main_cards_div.find('td',class_="rightyose")
             try:
                 main_card = main_card.find("font").get_text()
-                main_point.append(float(main_card))
+                main_point.append(math.ceil(main_card))
             except:
                 extra_point.append(0)
     
@@ -72,7 +71,7 @@ def scrape_point(main,extra):
             extra_card = extra_cards_div.find('td',class_="rightyose")
             try:
                 extra_card = extra_card.find("font").get_text()
-                extra_point.append(float(extra_card))
+                extra_point.append(math.ceil(extra_card))
             except:
                 extra_point.append(0)
                 
@@ -81,7 +80,7 @@ def scrape_point(main,extra):
 
 # ユーザーにURLを入力してもらう
 st.title("紙束杯 デッキ点数計算用ページ")
-st.write(f"紙束杯にて、遊戯王公式データベースに登録されているデッキレシピのURLを入力としてカード評価点を自動で算出するアプリケーションです。 遊戯王カード評価サイトの関係によりうまく検索できない場合があります。その場合は0点と表示されますので、各々で検索してください。")
+st.write(f"紙束杯にて、遊戯王公式データベース(https://www.db.yugioh-card.com/yugiohdb/?request_locale=ja)に登録されているデッキレシピのURLを入力としてカード評価点を自動で算出するアプリケーションです。 遊戯王カード評価サイト(https://yugioh-list.com/)の関係によりうまく検索できない場合があります。その場合は0点と表示されますので、各々で検索してください。一部対応していないルール等あるので、ルールブック(https://docs.google.com/spreadsheets/d/1uaq0iDGf4sJjLyNtLD9DRFGJB7S8bWBgDUCGoOcFTKc/edit?gid=0#gid=0)の確認も忘れずに")
 
 url = st.text_input("遊戯王カードデータベースのデッキのURLを入力:")
 
@@ -113,7 +112,14 @@ if url:
         st.header("デッキの点数")
         st.write(f"合計点数 - {sum_point}")
 
+        
 
+        st.download_button(
+            label="CSVファイルをダウンロード",
+            data=csv,
+            file_name='decklist.csv',
+            mime='text/csv'
+        )
         
 
         
