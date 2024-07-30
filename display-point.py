@@ -79,8 +79,7 @@ def scrape_point(main,extra):
     return main_point, extra_point
 
 # ユーザーにURLを入力してもらう
-st.title("紙束杯 デッキ点数計算用ページ")
-st.write(f"紙束杯にて、遊戯王公式データベース(https://www.db.yugioh-card.com/yugiohdb/?request_locale=ja)に登録されているデッキレシピのURLを入力としてカード評価点を自動で算出するアプリケーションです。 遊戯王カード評価サイト(https://yugioh-list.com/)の関係によりうまく検索できない場合があります。その場合は0点と表示されますので、各々で検索してください。一部対応していないルール等あるので、ルールブック(https://docs.google.com/spreadsheets/d/1uaq0iDGf4sJjLyNtLD9DRFGJB7S8bWBgDUCGoOcFTKc/edit?gid=0#gid=0)の確認も忘れずに")
+st.write(f"紙束杯にて、遊戯王公式データベースに登録されているデッキレシピのURLを入力としてカード評価点を自動で算出するアプリケーションです。\n 遊戯王カード評価サイトの関係によりうまく検索できない場合があります。その場合は0点と表示されますので、各々で検索してください。\n一部対応していないルール等あるので、ルールブックの確認も忘れずにお願いします。")
 
 url = st.text_input("遊戯王カードデータベースのデッキのURLを入力:")
 
